@@ -317,6 +317,29 @@
           "WhatsApp Image 2026-09-05 at 10.35.05 PM (2).jpeg",
           "WhatsApp Image 2026-09-05 at 10.35.05 PM.jpeg"
         ]
+      },
+      {
+        id: "nuevas",
+        nombre: "Nuevas Fotos",
+        largo: "",
+        ancho: "",
+        folder: "img/nuevasfotos",
+        imgs: [
+          "WhatsApp Image 2026-09-08 at 5.41.37 PM (1).jpeg",
+          "WhatsApp Image 2026-09-08 at 5.41.37 PM.jpeg",
+          "WhatsApp Image 2026-09-08 at 5.41.38 PM (1).jpeg",
+          "WhatsApp Image 2026-09-08 at 5.41.38 PM (2).jpeg",
+          "WhatsApp Image 2026-09-08 at 5.41.38 PM.jpeg",
+          "WhatsApp Image 2026-09-08 at 5.41.39 PM (1).jpeg",
+          "WhatsApp Image 2026-09-08 at 5.41.39 PM (2).jpeg",
+          "WhatsApp Image 2026-09-08 at 5.41.39 PM.jpeg",
+          "WhatsApp Image 2026-09-08 at 5.41.40 PM (1).jpeg",
+          "WhatsApp Image 2026-09-08 at 5.41.40 PM.jpeg",
+          "WhatsApp Image 2026-09-08 at 5.41.41 PM (1).jpeg",
+          "WhatsApp Image 2026-09-08 at 5.41.41 PM.jpeg",
+          "WhatsApp Image 2026-09-08 at 5.41.42 PM (1).jpeg",
+          "WhatsApp Image 2026-09-08 at 5.41.42 PM.jpeg"
+        ]
       }
     ];
 
@@ -344,15 +367,20 @@
           '<span class="glow" aria-hidden="true"></span><span class="frame" aria-hidden="true"></span></button></figure>';
       }).join("");
 
+      var metaHtml = '';
+      if (ref.largo) {
+        metaHtml = '<div class="ref-meta">' +
+          '<span class="ref-badge">' + rulerSvg + ' Largo: ' + ref.largo + '</span>' +
+          '<span class="ref-badge">' + rulerSvg + ' Ancho: ' + ref.ancho + '</span>' +
+        '</div>';
+      }
+
       section.innerHTML =
         '<div class="wrap">' +
           '<div class="ref-header reveal">' +
             '<p class="eyebrow">Referencia</p>' +
             '<h2>' + ref.nombre + '</h2>' +
-            '<div class="ref-meta">' +
-              '<span class="ref-badge">' + rulerSvg + ' Largo: ' + ref.largo + '</span>' +
-              '<span class="ref-badge">' + rulerSvg + ' Ancho: ' + ref.ancho + '</span>' +
-            '</div>' +
+            metaHtml +
           '</div>' +
           '<div class="grid">' + cardsHtml + '</div>' +
         '</div>';
