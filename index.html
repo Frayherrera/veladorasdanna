@@ -286,6 +286,39 @@
   .lb-prev:hover, .lb-next:hover { transform: translateY(-50%) scale(1.06); }
   .lb-count { position: absolute; bottom: 1.4rem; left: 50%; transform: translateX(-50%); font-size: 0.85rem; letter-spacing: 0.12em; color: var(--smoke); }
 
+  /* Botón flotante de WhatsApp */
+  .wa-float {
+    position: fixed; right: clamp(1rem, 3vw, 1.6rem); bottom: clamp(1rem, 3vw, 1.6rem); z-index: 20;
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 58px; height: 58px; border-radius: 50%;
+    background: linear-gradient(145deg, #37d16d, #1eb455);
+    color: #fff; text-decoration: none;
+    box-shadow: 0 12px 30px rgba(0,0,0,0.45), 0 0 0 1px rgba(255,255,255,0.12) inset;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  .wa-float::after {
+    content: ""; position: absolute; inset: 0; border-radius: 50%;
+    border: 1px solid rgba(55, 209, 109, 0.6); animation: wa-pulse 2.6s ease-out infinite;
+  }
+  .wa-float:hover { transform: scale(1.07); box-shadow: 0 16px 38px rgba(0,0,0,0.55); }
+  .wa-float:focus-visible { outline: 2px solid var(--flame); outline-offset: 3px; }
+  .wa-float .wa-icon { width: 32px; height: 32px; }
+  .wa-float .wa-label {
+    position: absolute; right: calc(100% + 0.7rem); white-space: nowrap;
+    padding: 0.4rem 0.85rem; border-radius: 999px;
+    background: rgba(26,17,10,0.85); border: 1px solid var(--line); color: var(--wax);
+    font-size: 0.85rem; font-weight: 600; letter-spacing: 0.03em;
+    opacity: 0; transform: translateX(8px); pointer-events: none;
+    transition: opacity 0.25s ease, transform 0.25s ease;
+  }
+  .wa-float:hover .wa-label, .wa-float:focus-visible .wa-label { opacity: 1; transform: none; }
+  .lightbox.open ~ .wa-float { opacity: 0; pointer-events: none; }
+
+  @keyframes wa-pulse {
+    0% { transform: scale(1); opacity: 0.7; }
+    70%, 100% { transform: scale(1.5); opacity: 0; }
+  }
+
   /* Reveal on scroll */
   .reveal { opacity: 0; transform: translateY(12px); transition: opacity 0.6s ease, transform 0.6s ease; }
   .reveal.is-visible { opacity: 1; transform: none; }
@@ -312,6 +345,8 @@
     .grid { gap: 0.8rem; }
     .ref-meta { gap: 0.6rem; }
     .ref-badge { font-size: 0.75rem; padding: 0.3rem 0.7rem; }
+    .wa-float { width: 54px; height: 54px; }
+    .wa-float .wa-icon { width: 29px; height: 29px; }
   }
 </style>
 </head>
@@ -375,6 +410,13 @@
     <button class="lb-btn lb-next" id="lb-next" aria-label="Siguiente">&#8250;</button>
     <span class="lb-count" id="lb-count"></span>
   </div>
+
+  <a class="wa-float" id="wa-float" href="https://wa.me/573205784339?text=Hola%20Veladoras%20Arc%C3%A1ngel%2C%20me%20interesa%20una%20velona.%20%C2%BFMe%20pueden%20dar%20informaci%C3%B3n%3F" target="_blank" rel="noopener" aria-label="Escribir por WhatsApp">
+    <svg class="wa-icon" viewBox="0 0 32 32" fill="currentColor" aria-hidden="true">
+      <path d="M16.04 3C8.9 3 3.16 8.74 3.16 15.88c0 2.29.6 4.52 1.74 6.48L3 29l6.78-1.78a12.85 12.85 0 0 0 6.26 1.6h.01c7.14 0 12.88-5.74 12.88-12.88 0-3.44-1.34-6.67-3.77-9.1A12.78 12.78 0 0 0 16.04 3Zm0 23.4h-.01a10.4 10.4 0 0 1-5.3-1.45l-.38-.23-3.95 1.03 1.06-3.85-.25-.4a10.37 10.37 0 0 1-1.59-5.52c0-5.76 4.68-10.44 10.43-10.44 2.79 0 5.4 1.08 7.37 3.05a10.36 10.36 0 0 1 3.05 7.4c0 5.75-4.68 10.44-10.43 10.44Zm5.72-7.82c-.31-.16-1.85-.92-2.14-1.02-.29-.11-.5-.16-.71.15-.21.31-.81 1.01-.99 1.22-.18.2-.36.23-.67.08-.31-.16-1.31-.48-2.49-1.54-.92-.82-1.54-1.83-1.72-2.14-.18-.31-.02-.47.14-.63.14-.14.31-.36.46-.54.16-.18.21-.31.31-.52.11-.2.05-.39-.02-.54-.07-.16-.7-1.71-.97-2.34-.25-.6-.51-.52-.7-.53h-.6c-.2 0-.53.08-.81.39-.27.31-1.05 1.03-1.05 2.51s1.08 2.91 1.23 3.11c.15.2 2.12 3.35 5.17 4.57.72.31 1.29.5 1.73.64.73.23 1.39.2 1.91.12.58-.09 1.85-.76 2.11-1.49.26-.73.26-1.35.18-1.49-.07-.13-.28-.21-.59-.37Z"/>
+    </svg>
+    <span class="wa-label">Escríbenos</span>
+  </a>
 
   <script>
     var WHATSAPP = "573205784339";
@@ -628,6 +670,7 @@
     document.getElementById("cta-head").href = conecta();
     document.getElementById("cta-hero").href = conecta();
     document.getElementById("cta-foot").href = conecta();
+    document.getElementById("wa-float").href = conecta();
 
     var io = new IntersectionObserver(function (entries) {
       entries.forEach(function (e) {
